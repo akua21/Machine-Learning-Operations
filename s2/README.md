@@ -55,3 +55,33 @@ Project Organization
 --------
 
 <p><small>Project based on the <a target="_blank" href="https://drivendata.github.io/cookiecutter-data-science/">cookiecutter data science project template</a>. #cookiecutterdatascience</small></p>
+
+
+--------
+
+Scripts Description
+------------
+
+ - **make_dataset.py**: it takes the data files from `data/raw`, process them to prepare the dataset for the training and saves them in `data/processed`.
+
+ ```
+make data
+ ```
+
+ - **train_model.py**: it trains the network. It has optional flags: *lr* (by default 0.0001) and *epochs* (by default 10).
+
+```
+python src/models/train_model.py --lr 0.0001 --epochs 10
+```
+
+ - **predict_model**: it makes predictions from a set of images or *.npy* file using a pretrained model. It requires the model path and the folder with the images or the *.npy* file path.
+
+```
+ python src/models/predict_model.py load_model_from <model>.pt load_data_from <folder>
+ ```
+
+ - **visualize**: it makes a visualization of the features from the last hidden layer of the model (from the train dataset).
+
+ ```
+ python src/visualization/visualize.py
+ ```

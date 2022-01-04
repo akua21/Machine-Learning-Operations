@@ -11,18 +11,22 @@ sns.set()
 
 
 class Train(object):
-    """ Helper class that will help launch class methods as commands
-        from a single script
+    """Class for training the model.
+
+    It loads a dataset, trains the model and saves it.
+
+    Displays and saves a figure with the loss function from the training.
     """
+
     def __init__(self):
         print("Training day and night")
-        parser = argparse.ArgumentParser(description='Training arguments')
-        parser.add_argument('--lr', default=0.0001)
-        parser.add_argument('--epochs', default=10)
+        parser = argparse.ArgumentParser(description="Training arguments")
+        parser.add_argument("--lr", default=0.0001)
+        parser.add_argument("--epochs", default=10)
         # add any additional argument that you want
         args = parser.parse_args(sys.argv[1:])
         print(args)
-        
+
         model = MyAwesomeModel()
         model.train()
         train_set = torch.load("data/processed/corruptmnist/train.pt")
@@ -43,29 +47,25 @@ class Train(object):
                 loss = criterion(outputs, labels)
                 loss.backward()
                 optimizer.step()
-                
+
                 running_loss += loss.item()
 
-            print(f"Epoch: {e+1}/{args.epochs}\t Loss: {running_loss/len(train_set):5f}")
-            plot_loss.append(running_loss/len(train_set))
-        
+            print(
+                f"Epoch: {e+1}/{args.epochs}\t Loss: {running_loss/len(train_set):5f}"
+            )
+            plot_loss.append(running_loss / len(train_set))
 
         torch.save(model.state_dict(), "models/mnist/trained_model.pt")
 
         plt.figure(figsize=(12, 8))
         plt.title("Training Loss")
         plt.xlabel("Epoch")
-        plt.xticks(range(1, args.epochs+2))
+        plt.xticks(range(1, args.epochs + 2))
         plt.ylabel("Loss")
-        plt.plot(range(1, args.epochs+1), plot_loss)
+        plt.plot(range(1, args.epochs + 1), plot_loss)
         plt.savefig("reports/figures/training_loss.png")
         plt.show()
 
 
-
-
-if __name__ == '__main__':
+if __name__ == "__main__":
     Train()
-    
-    
-    

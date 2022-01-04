@@ -12,14 +12,21 @@ from torchvision import transforms
 
 def mnist(input_filepath, output_filepath, batch_size=8):
     files_folder = f"{input_filepath}/corruptmnist/"
+    files_folder_2 = f"{input_filepath}/corruptmnist_v2/"
 
     # Train
-    train_files = [f"{files_folder}train_{i}.npz" for i in range(5)] 
+    train_files = [f"{files_folder}train_{i}.npz" for i in range(5)]
+    train_files_2 = [f"{files_folder_2}train_{i}.npz" for i in range(5, 8)]
 
     x_train = []
     y_train = []
 
     for file in train_files:
+        with np.load(file) as data:
+            x_train.extend(data["images"])
+            y_train.extend(data["labels"])
+
+    for file in train_files_2:
         with np.load(file) as data:
             x_train.extend(data["images"])
             y_train.extend(data["labels"])
@@ -39,7 +46,6 @@ def mnist(input_filepath, output_filepath, batch_size=8):
     x_test = torch.Tensor(x_test)
     y_test = torch.Tensor(y_test)
 
-
     # Define a transform to normalize the data
     transform = transforms.Normalize((0.5,), (0.5,))
 
@@ -55,24 +61,22 @@ def mnist(input_filepath, output_filepath, batch_size=8):
     return train, test
 
 
-
-
-
 @click.command()
-@click.argument('input_filepath', type=click.Path(exists=True))
-@click.argument('output_filepath', type=click.Path())
+@click.argument("input_filepath", type=click.Path(exists=True))
+@click.argument("output_filepath", type=click.Path())
 def main(input_filepath, output_filepath):
-    """ Runs data processing scripts to turn raw data from (../raw) into
-        cleaned data ready to be analyzed (saved in ../processed).
+    """Runs data processing scripts to turn raw data from (../raw) into
+    cleaned data ready to be analyzed (saved in ../processed).
     """
 
     logger = logging.getLogger(__name__)
-    logger.info('making final data set from raw data')
+    logger.info("making final data set from raw data")
 
     mnist(input_filepath, output_filepath)
 
-if __name__ == '__main__':
-    log_fmt = '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+
+if __name__ == "__main__":
+    log_fmt = "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
     logging.basicConfig(level=logging.INFO, format=log_fmt)
 
     # not used in this stub but often useful for finding various files
@@ -82,5 +86,4 @@ if __name__ == '__main__':
     # load up the .env entries as environment variables
     load_dotenv(find_dotenv())
 
-    
     main()

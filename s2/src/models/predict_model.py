@@ -10,8 +10,9 @@ from torchvision import transforms
 
 
 class Evaluate(object):
-    """Helper class that will help launch class methods as commands
-    from a single script
+    """Class for making predictions from data using a pretrained model.
+
+    It loads data and evaluates it with the model.
     """
 
     def __init__(self):
@@ -32,11 +33,13 @@ class Evaluate(object):
             test_set = []
             for img in os.listdir(args.load_data_from):
                 image = Image.open(os.path.join(args.load_data_from, img))
+                # To convert the image to gray scale
                 image = image.convert("L")
                 test_set.append(transform(image))
         # npy files
         else:
             loaded_data = np.load(args.load_data_from)
+            # To make each image in a batch with size 1
             test_set = [transform(x.reshape((28, 28, 1))) for x in loaded_data]
 
         model.load_state_dict(torch.load(args.load_model_from))
