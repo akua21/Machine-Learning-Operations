@@ -1,0 +1,5 @@
+MyAwesomeModel:
+  hidden_layer : [784, 256]
+  activation : Sigmoid()
+  last_activation : Softmax(dim=1)
+  output_shape : 10

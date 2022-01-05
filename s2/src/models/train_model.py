@@ -64,7 +64,7 @@ class Train(object):
         plt.ylabel("Loss")
         plt.plot(range(1, args.epochs + 1), plot_loss)
         plt.savefig("reports/figures/training_loss.png")
-        plt.show()
+        plt.close()
 
 
 if __name__ == "__main__":
