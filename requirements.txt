@@ -1,0 +1,13 @@
+click==8.0.3
+hydra-core==1.1.1
+matplotlib==3.4.3
+Pillow==9.0.0
+pytest==6.2.5
+python-dotenv==0.19.2
+pytorch_lightning==1.5.8
+scikit_learn==1.0.2
+seaborn==0.11.2
+setuptools==58.0.4
+torchvision==0.10.0
+tqdm==4.62.3
+wandb==0.12.9
