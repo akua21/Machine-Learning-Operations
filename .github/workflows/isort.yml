@@ -1,4 +1,4 @@
-name: "Run tests"
+name: "Run test style imports"
 
 on:
   push:
@@ -34,3 +34,7 @@ jobs:
       run: |
         pip install pytest
         pytest -v s5/tests/
+    - name: Test style
+      run: |
+        pip install isort 
+        isort .
