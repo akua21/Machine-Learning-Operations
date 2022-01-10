@@ -1,4 +1,4 @@
-name: "Run test style imports"
+name: "Run isort"
 
 on:
   push:
@@ -30,11 +30,7 @@ jobs:
         python -m pip install --upgrade pip
         pip install -r requirements.txt
         pip install -r requirements_tests.txt
-    - name: Test with pytest
-      run: |
-        pip install pytest
-        pytest -v s5/tests/
-    - name: Test style
+    - name: isort
       run: |
         pip install isort 
         isort .
