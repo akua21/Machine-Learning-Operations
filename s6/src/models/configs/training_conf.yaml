@@ -1,0 +1,6 @@
+exp:
+  seed : 10
+  epochs : 5
+  dataset_path : /data/processed/corruptmnist/train.pt
+  trained_model_path : /models/mnist/
+  training_loss_img_path : /reports/figures/training_loss.png
